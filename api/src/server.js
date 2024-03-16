@@ -5,15 +5,11 @@ const db = require("./config/database");
 
 const auth_middleware = (req, res, next) => {
   console.log("auth protection...");
-  res.send("resp ok");
   next();
 };
 
 hyper.get("/", { middlewares: [auth_middleware] }, (_, r) => {
   console.log("get api ready...");
-
-  const x = db.query("select * from users");
-  console.log("test db", x);
 
   return r.json({
     status: "OK GASS",
@@ -24,6 +20,10 @@ hyper.get("/", { middlewares: [auth_middleware] }, (_, r) => {
 const user_router = new HyperE.Router();
 
 user_router.get("/profile", (req, res) => {
+  db.query("select * from users", (err, result) => {
+    if (err) throw new Error("Error euy!!");
+    console.log(result[0].username);
+  });
   console.log("profile user test");
   res.send("profile user");
 });
