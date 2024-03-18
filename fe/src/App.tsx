@@ -1,12 +1,20 @@
-import './App.css'
+import "./App.css";
+import Hero from "./components/hero";
+import Layout from "./components/layout";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
-
   return (
     <>
-      <div className='font-bold text-green-400 text-5xl'>Merhaba Arkadaşlar</div>
+      <QueryClientProvider client={queryClient}>
+        <Layout>
+          <Hero/>
+        </Layout>
+      </QueryClientProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
